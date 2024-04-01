@@ -43,6 +43,11 @@ def InitMazeStorage(MDataL, DifficultySetting):
     #Temporary matrix to add to the main marix later
     temp = []
     
+    # Walls is an array that has entries 0 - 3 representing the walls. 0 is north, 1 is east, 2 is south, 3 is west
+    # 4 states if it has been visited by the maze generation, 
+    # 5 gives the type of the cell, (empty, exit, stairs, encounter[value 100-200])
+    walls = []
+    
     if DifficultySetting == 1:
         length = random.randint(20, 40)
     elif DifficultySetting == 2:
@@ -52,15 +57,21 @@ def InitMazeStorage(MDataL, DifficultySetting):
     elif DifficultySetting == 4:
         length = random.randint(600, 1000)
 
+    for i in range(7):
+        walls.append(1)
     for i in range(length):
-        temp.append(0)
+        temp.append(walls)
     for i in range(length):
         MDataL.append(temp)
     return MDataL, length
 
 
 
-def GenerateMaze(DiffucultySetting):
+def GenerateMaze(DiffucultySetting, len):
+    RandomStartNode = random.randint(1, len - 2)
+    
+
+
     return
 
 
@@ -68,7 +79,3 @@ def GenerateMaze(DiffucultySetting):
 #########################################Call Methods and Run Game########################
 
 MazeLayoutData, Length = InitMazeStorage(MazeLayoutData, Difficulty)
-
-
-
-
