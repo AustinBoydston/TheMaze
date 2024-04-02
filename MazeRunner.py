@@ -67,13 +67,35 @@ def InitMazeStorage(MDataL, DifficultySetting):
 
 
 
-def GenerateMaze(DiffucultySetting, len):
-    RandomStartNode = random.randint(1, len - 2)
-    
+def GenerateMaze(Maze, DiffucultySetting, len):
+    RandomStartNodex = random.randint(1, len - 2)
+    RandomStartNodey = random.randint(1, len - 2)
 
+    #Stack is the stack for implementing back tracking. it stores a list of maze node, x coordinate, and y coordinate
+    Stack = []
+    AllNotVisited = True
+    Stack.append({Maze[RandomStartNodex][RandomStartNodey], RandomStartNodex, RandomStartNodey})
+
+
+    while(AllNotVisited):
+        Current = Stack.pop()
+        #Check frontier items
+        CheckFontier(Maze, Current[1], Current[2])
 
     return
 
+#Check if the entry of the maze is a valid fontier item
+def CheckFontier(Maze, coordx, coordy, len):
+    try:
+        M_obj = Maze[coordx][coordy]
+        if coordx == 0 or coordy == 0 or coordx == len-1 or coordy == len-1:
+            return False, 1
+        #Check if node has been visited already
+        if M_obj[4] != 1:
+            return False, 2
+        return True, 0
+    except:
+        return False, 3
 
 
 #########################################Call Methods and Run Game########################
