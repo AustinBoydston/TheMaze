@@ -23,6 +23,9 @@ print("                    2: medium")
 print("                    3: hard")
 print("                    4: Endless")
 
+#Clear the terminal screen (just to make less typing for me)
+def CL():
+    os.system('cls')
 
 #Get Difficulty from user
 while(True):
@@ -33,9 +36,7 @@ while(True):
     except:
         pass
 
-#Clear the terminal screen (just to make less typing for me)
-def CL():
-    os.system('cls')
+
 
 
 #Create the empty maze
@@ -71,18 +72,52 @@ def GenerateMaze(Maze, DiffucultySetting, len):
     RandomStartNodex = random.randint(1, len - 2)
     RandomStartNodey = random.randint(1, len - 2)
 
-    #Stack is the stack for implementing back tracking. it stores a list of maze node, x coordinate, and y coordinate
+    #Stack is the stack for implementing back tracking. it stores a list of maze nodes, x coordinate, and y coordinate
     Stack = []
     AllNotVisited = True
     Stack.append({Maze[RandomStartNodex][RandomStartNodey], RandomStartNodex, RandomStartNodey})
 
 
     while(AllNotVisited):
+        #get the current node off the top of the stack
         Current = Stack.pop()
+        #Set node to visited
+        Maze[Current[1]][Current[2]][4] = 0
+        Available = 0
+        
         #Check frontier items
-        CheckFontier(Maze, Current[1], Current[2])
+        #check north
+        north = CheckFontier(Maze, Current[1], Current[2] + 1, len)
+        if north:
+            Available = Available + 1
+        #check east
+        east = CheckFontier(Maze, Current[1] + 1 , Current[2], len)
+        if east:
+            Available = Available + 1
+        #check south
+        south = CheckFontier(Maze, Current[1], Current[2] - 1, len)
+        if south:
+            Available = Available + 1
+        #check west
+        west = CheckFontier(Maze, Current[1] - 1, Current[2], len)
+        if west:
+            Available = Available + 1
+        #Choose a random direction to try to go in
+        #If no available frontier, back track
+        if Available == 0:
+            pass
+        else:
+            #Push current back onto the stack if it still has frontier next to it.
+            Stack.append(Current)
+            ChooseRandomDirection = random.randint(1, Available)
+            
+       
 
-    return
+
+
+        
+
+    return Maze
 
 #Check if the entry of the maze is a valid fontier item
 def CheckFontier(Maze, coordx, coordy, len):
