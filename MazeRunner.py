@@ -87,9 +87,10 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         Maze[Current[1]][Current[2]][4] = 0
         Available = 0
         
+        #Index for the wall from the other side.
+        ReverseWall = 0
 
-
-        #Check frontier items
+        #Check frontier items if they are valid and have not been visited yet
         #check north
         north = CheckFontier(Maze, Current[1], Current[2] + 1, len)
         if north:
@@ -118,18 +119,26 @@ def GenerateMaze(Maze, DiffucultySetting, len):
                 match ChooseRandomDirection:
                     case 1:
                         if(north):
+                            ReverseWall = 3
+                            #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
+                            Maze[Current[]]
                             break
                     case 2:
                         if(east):
+                            ReverseWall = 4
                             break
                     case 3:
                         if(south):
+                            ReverseWall = 1
                             break
                     case 4:
                         if(west):
+                            ReverseWall = 2
                             break
-                    
-                    
+            #Set the wall in the chosen direction to air on the current node's side
+            Maze[Current[1]][Current[2]][ChooseRandomDirection] = 0
+            
+            
 
        
 
