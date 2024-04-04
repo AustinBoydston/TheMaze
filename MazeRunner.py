@@ -117,15 +117,20 @@ def GenerateMaze(Maze, DiffucultySetting, len):
                 ChooseRandomDirection = random.randint(1, 4)
                 match ChooseRandomDirection:
                     case 1:
-                        
+                        if(north):
+                            break
                     case 2:
-
+                        if(east):
+                            break
                     case 3:
-
+                        if(south):
+                            break
                     case 4:
+                        if(west):
+                            break
+                    
+                    
 
-                    default:
-            
        
 
 
