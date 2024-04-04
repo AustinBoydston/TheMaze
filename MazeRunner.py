@@ -69,6 +69,8 @@ def InitMazeStorage(MDataL, DifficultySetting):
 
 
 def GenerateMaze(Maze, DiffucultySetting, len):
+
+    #Choose a random pair of coordinates for maze to start its generation from.
     RandomStartNodex = random.randint(1, len - 2)
     RandomStartNodey = random.randint(1, len - 2)
 
@@ -85,6 +87,8 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         Maze[Current[1]][Current[2]][4] = 0
         Available = 0
         
+
+
         #Check frontier items
         #check north
         north = CheckFontier(Maze, Current[1], Current[2] + 1, len)
@@ -109,7 +113,18 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         else:
             #Push current back onto the stack if it still has frontier next to it.
             Stack.append(Current)
-            ChooseRandomDirection = random.randint(1, Available)
+            while(True):
+                ChooseRandomDirection = random.randint(1, 4)
+                match ChooseRandomDirection:
+                    case 1:
+                        
+                    case 2:
+
+                    case 3:
+
+                    case 4:
+
+                    default:
             
        
 
