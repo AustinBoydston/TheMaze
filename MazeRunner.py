@@ -110,7 +110,9 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         #Choose a random direction to try to go in
         #If no available frontier, back track
         if Available == 0:
-            pass
+            if(Stack.len() == 0):
+                AllNotVisited = False
+                break
         else:
             #Push current back onto the stack if it still has frontier next to it.
             Stack.append(Current)
@@ -121,25 +123,33 @@ def GenerateMaze(Maze, DiffucultySetting, len):
                         if(north):
                             ReverseWall = 3
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
-                            Maze[Current[1]][Current[2]][ReverseWall] = 0
+                            Maze[Current[1]][Current[2]+1][ReverseWall] = 0
+                            Stack.append(Maze[Current[1]][Current[2]+1], Current[1], Current[2]+1)
                             break
                     case 2:
                         if(east):
                             ReverseWall = 4
-                            Maze[Current[1]][Current[2]][ReverseWall] = 0
+                            #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
+                            Maze[Current[1]+1][Current[2]][ReverseWall] = 0
+                            Stack.append(Maze[Current[1]+1][Current[2]], Current[1]+1, Current[2])
                             break
                     case 3:
                         if(south):
                             ReverseWall = 1
-                            Maze[Current[1]][Current[2]][ReverseWall] = 0
+                            #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
+                            Maze[Current[1]][Current[2]-1][ReverseWall] = 0
+                            Stack.append(Maze[Current[1]][Current[2]-1], Current[1], Current[2]-1)
                             break
                     case 4:
                         if(west):
                             ReverseWall = 2
-                            Maze[Current[1]][Current[2]][ReverseWall] = 0
+                            #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
+                            Maze[Current[1]-1][Current[2]][ReverseWall] = 0
+                            Stack.append(Maze[Current[1]-1][Current[2]], Current[1]-1, Current[2])
                             break
             #Set the wall in the chosen direction to air on the current node's side
             Maze[Current[1]][Current[2]][ChooseRandomDirection] = 0
+
             
             
 
