@@ -121,19 +121,22 @@ def GenerateMaze(Maze, DiffucultySetting, len):
                         if(north):
                             ReverseWall = 3
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
-                            Maze[Current[]]
+                            Maze[Current[1]][Current[2]][ReverseWall] = 0
                             break
                     case 2:
                         if(east):
                             ReverseWall = 4
+                            Maze[Current[1]][Current[2]][ReverseWall] = 0
                             break
                     case 3:
                         if(south):
                             ReverseWall = 1
+                            Maze[Current[1]][Current[2]][ReverseWall] = 0
                             break
                     case 4:
                         if(west):
                             ReverseWall = 2
+                            Maze[Current[1]][Current[2]][ReverseWall] = 0
                             break
             #Set the wall in the chosen direction to air on the current node's side
             Maze[Current[1]][Current[2]][ChooseRandomDirection] = 0
