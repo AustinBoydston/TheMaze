@@ -4,6 +4,8 @@ import random
 MazeLayoutData = []
 Length = 0
 
+
+
 print("_________          _______    _______  _______  _______  _______ ")
 print("\\__   __/|\\     /|(  ____ \\  (       )(  ___  )/ ___   )(  ____ \\")
 print("   ) (   | )   ( || (    \\/  | () () || (   ) |\\/   )  || (    \\/")
@@ -77,12 +79,13 @@ def GenerateMaze(Maze, DiffucultySetting, len):
     #Stack is the stack for implementing back tracking. it stores a list of maze nodes, x coordinate, and y coordinate
     Stack = []
     AllNotVisited = True
-    Stack.append({Maze[RandomStartNodex][RandomStartNodey], RandomStartNodex, RandomStartNodey})
+    Stack.append([tuple(Maze[RandomStartNodex][RandomStartNodey]), RandomStartNodex, RandomStartNodey])
 
 
     while(AllNotVisited):
         #get the current node off the top of the stack
         Current = Stack.pop()
+
         #Set node to visited
         Maze[Current[1]][Current[2]][4] = 0
         Available = 0
@@ -118,34 +121,38 @@ def GenerateMaze(Maze, DiffucultySetting, len):
             Stack.append(Current)
             while(True):
                 ChooseRandomDirection = random.randint(1, 4)
+                print("The stack is: ", Stack)
                 match ChooseRandomDirection:
                     case 1:
                         if(north):
                             ReverseWall = 3
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
                             Maze[Current[1]][Current[2]+1][ReverseWall] = 0
-                            Stack.append(Maze[Current[1]][Current[2]+1], Current[1], Current[2]+1)
+                            Stack.append([Maze[Current[1]][Current[2]+1], Current[1], Current[2]+1])
                             break
                     case 2:
                         if(east):
                             ReverseWall = 4
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
                             Maze[Current[1]+1][Current[2]][ReverseWall] = 0
-                            Stack.append(Maze[Current[1]+1][Current[2]], Current[1]+1, Current[2])
+                            Stack.append([Maze[Current[1]+1][Current[2]], Current[1]+1, Current[2]])
                             break
                     case 3:
                         if(south):
                             ReverseWall = 1
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
                             Maze[Current[1]][Current[2]-1][ReverseWall] = 0
-                            Stack.append(Maze[Current[1]][Current[2]-1], Current[1], Current[2]-1)
+                            Stack.append([Maze[Current[1]][Current[2]-1], Current[1], Current[2]-1])
                             break
                     case 4:
                         if(west):
                             ReverseWall = 2
+                            print()
+                            print(Current[1])
+                            print(Current[2])
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
                             Maze[Current[1]-1][Current[2]][ReverseWall] = 0
-                            Stack.append(Maze[Current[1]-1][Current[2]], Current[1]-1, Current[2])
+                            Stack.append([Maze[Current[1]-1][Current[2]], Current[1]-1, Current[2]])
                             break
             #Set the wall in the chosen direction to air on the current node's side
             Maze[Current[1]][Current[2]][ChooseRandomDirection] = 0
@@ -178,3 +185,5 @@ def CheckFontier(Maze, coordx, coordy, len):
 #########################################Call Methods and Run Game########################
 
 MazeLayoutData, Length = InitMazeStorage(MazeLayoutData, Difficulty)
+MazeLayoutData = GenerateMaze(MazeLayoutData, Difficulty, Length)
+print(MazeLayoutData)
