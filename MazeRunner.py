@@ -52,7 +52,7 @@ def InitMazeStorage(MDataL, DifficultySetting):
     walls = []
     
     if DifficultySetting == 1:
-        length = random.randint(20, 40)
+        length = random.randint(10, 10)
     elif DifficultySetting == 2:
         length = random.randint(60, 120)
     elif DifficultySetting == 3:
@@ -87,7 +87,11 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         Current = Stack.pop()
 
         #Set node to visited
+        print()
+        print(Current[1]," : ", Current[2])
+        print(Maze[Current[1]][Current[2]][4])
         Maze[Current[1]][Current[2]][4] = 0
+        print(Maze[Current[1]][Current[2]][4])
         Available = 0
         
         #Index for the wall from the other side.
@@ -121,7 +125,7 @@ def GenerateMaze(Maze, DiffucultySetting, len):
             Stack.append(Current)
             while(True):
                 ChooseRandomDirection = random.randint(1, 4)
-                print("The stack is: ", Stack)
+                #print("The stack is: ", Stack)
                 match ChooseRandomDirection:
                     case 1:
                         if(north):
@@ -147,9 +151,9 @@ def GenerateMaze(Maze, DiffucultySetting, len):
                     case 4:
                         if(west):
                             ReverseWall = 2
-                            print()
-                            print(Current[1])
-                            print(Current[2])
+                            #print()
+                            #print(Current[1])
+                            #print(Current[2])
                             #Set the wall in the next node that is between this node and it to air (this prevents one way passages)
                             Maze[Current[1]-1][Current[2]][ReverseWall] = 0
                             Stack.append([Maze[Current[1]-1][Current[2]], Current[1]-1, Current[2]])
@@ -172,8 +176,8 @@ def GenerateMaze(Maze, DiffucultySetting, len):
 def CheckFontier(Maze, coordx, coordy, len):
     try:
         M_obj = Maze[coordx][coordy]
-        if coordx == 0 or coordy == 0 or coordx == len-1 or coordy == len-1:
-            return False, 1
+        #if coordx == 0 or coordy == 0 or coordx == len-1 or coordy == len-1:
+           # return False, 1
         #Check if node has been visited already
         if M_obj[4] != 1:
             return False, 2
