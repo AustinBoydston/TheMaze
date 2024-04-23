@@ -116,8 +116,10 @@ def GenerateMaze(Maze, DiffucultySetting, len):
             Available = Available + 1
         #Choose a random direction to try to go in
         #If no available frontier, back track
+        print(Stack)
         if Available == 0:
-            if(Stack.len() == 0):
+            
+            if(len(Stack) == 0):
                 AllNotVisited = False
                 break
         else:
@@ -180,10 +182,10 @@ def CheckFontier(Maze, coordx, coordy, len):
            # return False, 1
         #Check if node has been visited already
         if M_obj[4] != 1:
-            return False, 2
-        return True, 0
+            return False#, 2
+        return True#, 0
     except:
-        return False, 3
+        return False#, 3
 
 
 #########################################Call Methods and Run Game########################
