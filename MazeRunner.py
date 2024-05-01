@@ -79,7 +79,7 @@ def GenerateMaze(Maze, DiffucultySetting, len):
     #Stack is the stack for implementing back tracking. it stores a list of maze nodes, x coordinate, and y coordinate
     Stack = []
     AllNotVisited = True
-    Stack.append([tuple(Maze[RandomStartNodex][RandomStartNodey]), RandomStartNodex, RandomStartNodey])
+    Stack.append([Maze[RandomStartNodex][RandomStartNodey], RandomStartNodex, RandomStartNodey])
     
 
     while(AllNotVisited):
@@ -101,22 +101,26 @@ def GenerateMaze(Maze, DiffucultySetting, len):
         #check north
         north = CheckFontier(Maze, Current[1], Current[2] + 1, len)
         if north:
+            print("north: ", north)
             Available = Available + 1
         #check east
         east = CheckFontier(Maze, Current[1] + 1 , Current[2], len)
         if east:
+            print("east: ", east)
             Available = Available + 1
         #check south
         south = CheckFontier(Maze, Current[1], Current[2] - 1, len)
         if south:
+            print("south: ", south)
             Available = Available + 1
         #check west
         west = CheckFontier(Maze, Current[1] - 1, Current[2], len)
         if west:
+            print("west: ", west)
             Available = Available + 1
         #Choose a random direction to try to go in
         #If no available frontier, back track
-        
+        print(Available)
         if Available == 0:
             
             if( not Stack):
@@ -176,20 +180,26 @@ def GenerateMaze(Maze, DiffucultySetting, len):
 
 #Check if the entry of the maze is a valid fontier item
 def CheckFontier(Maze, coordx, coordy, len):
+    print(coordx)
+    print(coordy)
     try:
         M_obj = Maze[coordx][coordy]
         #if coordx == 0 or coordy == 0 or coordx == len-1 or coordy == len-1:
            # return False, 1
-        #Check if node has been visited already
-        if M_obj[4] != 1:
-            return False#, 2
-        return True#, 0
+        
+        
     except:
-        return False#, 3
-
+        print("check fail")
+      
+    #Check if node has been visited already
+    try:
+        if M_obj[4] == 0:
+            return True
+    except: 
+        return False#, 2
 
 #########################################Call Methods and Run Game########################
 
 MazeLayoutData, Length = InitMazeStorage(MazeLayoutData, Difficulty)
 MazeLayoutData = GenerateMaze(MazeLayoutData, Difficulty, Length)
-print(MazeLayoutData)
+#print(MazeLayoutData)
