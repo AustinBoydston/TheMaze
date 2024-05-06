@@ -76,6 +76,9 @@ def GenerateMaze(Maze, DiffucultySetting, len):
     RandomStartNodex = random.randint(1, len - 2)
     RandomStartNodey = random.randint(1, len - 2)
 
+    RandomStartNodex = 0
+    RandomStartNodey = 0
+
     #Stack is the stack for implementing back tracking. it stores a list of maze nodes, x coordinate, and y coordinate
     Stack = []
     AllNotVisited = True
@@ -167,7 +170,7 @@ def GenerateMaze(Maze, DiffucultySetting, len):
             #Set the wall in the chosen direction to air on the current node's side
             Maze[Current[1]][Current[2]][ChooseRandomDirection] = 0
 
-            
+            #AllNotVisited = False
             
 
        
@@ -182,14 +185,19 @@ def GenerateMaze(Maze, DiffucultySetting, len):
 def CheckFontier(Maze, coordx, coordy, len):
     print(coordx)
     print(coordy)
-    try:
-        M_obj = Maze[coordx][coordy]
-        #if coordx == 0 or coordy == 0 or coordx == len-1 or coordy == len-1:
-           # return False, 1
-        
-        
-    except:
-        print("check fail")
+    if coordx < 0:
+        print("Check Frontier Failed Condition 1")
+        return False
+    elif coordy < 0:
+        print("Check Frontier Failed Condition 2")
+        return False
+    elif coordx > len:
+        print("Check Frontier Failed Condition 3")
+        return False
+    elif coordy > len:
+        print("Check Frontier Failed Condition 4")
+        return False
+    
       
     #Check if node has been visited already
     try:
